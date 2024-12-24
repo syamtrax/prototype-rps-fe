@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Text, Button, SafeAreaView } from "react-native";
+import io from "socket.io-client";
+const socket = io("http://localhost:3000");
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./pages/Home";
+import GamePlay from "./pages/Gameplay";
+import Login from "./pages/Login";
+import Gameplay2 from "./pages/Gameplay copy";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="GamePlay2"
+          component={GamePlay}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="GamePlay"
+          component={Gameplay2}
+          options={{ headerShown: false }}
+        />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
